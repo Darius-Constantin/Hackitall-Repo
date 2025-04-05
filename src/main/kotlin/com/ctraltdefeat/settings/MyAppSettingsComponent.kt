@@ -9,14 +9,22 @@ import javax.swing.JPanel
 
 
 class MyAppSettingsComponent() {
-    private var myMainPanel: JPanel? = JPanel()
-    private val myUserNameText = JBTextField()
-    private val myIdeaUserStatus = JBCheckBox("IntelliJ IDEA user")
+    private var myMainPanel: JPanel?
+    private var myWorkTime : JBTextField
+    private var myBreakTime : JBTextField
 
     init {
+        // Initialize components
+        myWorkTime = JBTextField()
+        myBreakTime = JBTextField()
+
+        // Build form and add components
         myMainPanel = FormBuilder.createFormBuilder().apply {
-            addLabeledComponent(JBLabel("User name:"), myUserNameText, 1, false)
-            addComponent(myIdeaUserStatus, 1)
+            val appSettings = MyAppSettings.getInstance()
+            val currentState = appSettings.getState()
+
+            addLabeledComponent(JBLabel("Work Time ${currentState.workTime} :"), myWorkTime, 1, false)
+            addLabeledComponent(JBLabel("Break Time ${currentState.breakTime} :"), myBreakTime, 2, false)
             addComponentFillVertically(JPanel(), 0)
         }.panel
     }
@@ -26,23 +34,31 @@ class MyAppSettingsComponent() {
     }
 
     fun getPreferredFocusedComponent(): JComponent {
-        return myUserNameText
+        return myWorkTime
     }
 
-    fun getUserNameText(): String {
-        return myUserNameText.text
+    fun getWorkTime(): Int {
+        if(myWorkTime.text.isNotEmpty() && myWorkTime.text.isNotBlank()){
+            return myWorkTime.text.toInt()
+        }
+        else
+            return 0
     }
 
-    fun setUserNameText(newText: String?) {
-        myUserNameText.text = newText
+    fun setBreakTime(newBreakTime: Int) {
+        myBreakTime.text = newBreakTime.toString()
     }
 
-    fun getIdeaUserStatus(): Boolean {
-        return myIdeaUserStatus.isSelected
+    fun getBreakTime() : Int {
+        if(myBreakTime.text.isNotEmpty() && myBreakTime.text.isNotBlank()){
+            return myBreakTime.text.toInt()
+        }
+        else
+            return 0
     }
 
-    fun setIdeaUserStatus(newStatus: Boolean) {
-        myIdeaUserStatus.isSelected = newStatus
+    fun setWorkTime(newWorkTime: Int) {
+        myWorkTime.text = newWorkTime.toString()
     }
 
 }

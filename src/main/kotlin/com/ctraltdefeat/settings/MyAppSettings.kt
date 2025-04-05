@@ -12,8 +12,8 @@ import com.intellij.openapi.components.Storage
 class MyAppSettings : PersistentStateComponent<MyAppSettings.State> {
 
     class State{
-        var userId: String = "John Smith"
-        var ideaStatus: Boolean = false
+        var workTime : Int = 0;
+        var breakTime : Int = 0;
     }
 
     private var myState: State = State()
