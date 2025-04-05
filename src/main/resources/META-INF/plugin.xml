@@ -30,6 +30,15 @@
                     icon="AllIcons.General.Balloon" anchor="right"
                     factoryClass="com.ctrlaltdefeat.annotations.ui.AnnotationToolWindowFactory"/>
         <backgroundPostStartupActivity implementation="com.ctrlaltdefeat.annotations.AnnotationStartupActivity"/>
+        <applicationConfigurable parentId="tools" instance="com.ctraltdefeat.settings.MyAppSettingsConfigurable"
+                                 id="com.ctraltdefeat.settings.MyAppSettingsConfigurable"
+                                 displayName="HEHEHE"/>
+        <applicationService serviceImplementation="com.ctraltdefeat.settings.MyAppSettings"/>
+        <applicationService serviceImplementation="com.ctrlaltdelete.mood.Mood"/>
+        <toolWindow id="MoodGraph"
+                    anchor="bottom"
+                    factoryClass="com.ctrlaltdelete.mood.MoodGraph"
+        />
     </extensions>
 
     <project-components>
@@ -68,5 +77,11 @@
                 description="Request more information from your team&#39;s members.">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
+        <action id="com.ctrlaltdelete.mood.MoodTriggerAction"
+                class="com.ctrlaltdelete.mood.MoodTriggerAction"
+                text="Lauch Mood Manually" description="Debug Mood Dialog Launch">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>
     </actions>
+
 </idea-plugin>

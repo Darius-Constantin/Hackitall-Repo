@@ -2,6 +2,7 @@ plugins {
     id("java")
     id("org.jetbrains.intellij") version "1.17.4"
 //    id("org.jetbrains.kotlin.jvm") version "1.9.25"
+    kotlin("jvm")
 }
 
 group = "com.ctrlaltdefeat"
@@ -31,8 +32,6 @@ intellij {
 tasks {
     // Set the JVM compatibility versions
     withType<JavaCompile> {
-        sourceCompatibility = "17"
-        targetCompatibility = "17"
     }
 //    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 //        kotlinOptions.jvmTarget = "17"
@@ -52,4 +51,10 @@ tasks {
     publishPlugin {
         token.set(System.getenv("PUBLISH_TOKEN"))
     }
+}
+dependencies {
+    implementation(kotlin("stdlib-jdk8"))
+}
+kotlin {
+    jvmToolchain(17)
 }
