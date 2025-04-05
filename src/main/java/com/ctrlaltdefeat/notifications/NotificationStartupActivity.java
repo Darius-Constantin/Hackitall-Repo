@@ -46,7 +46,7 @@ public class NotificationStartupActivity implements StartupActivity {
         scheduledTask = scheduler.schedule(() ->
                 ApplicationManager.getApplication().invokeLater(() -> {
                     showNotification(project);
-                }), delayInSeconds, TimeUnit.SECONDS);
+                }), delayInSeconds, TimeUnit.MINUTES);
 
     }
 
@@ -120,7 +120,7 @@ public class NotificationStartupActivity implements StartupActivity {
         scheduledTask = scheduler.schedule(() ->
                 ApplicationManager.getApplication().invokeLater(() -> {
                     showNotification(project);
-                }), snoozeSeconds, TimeUnit.SECONDS);
+                }), snoozeSeconds, TimeUnit.MINUTES);
     }
 
     private void restartCycle(Project project) {

@@ -2,12 +2,14 @@ package com.ctrlaltdefeat.notifications;
 
 import com.intellij.openapi.components.Service;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationGroupManager;
 import com.intellij.notification.NotificationType;
+import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,8 +22,10 @@ import java.util.TimerTask;
 
 @Service
 public final class ActivityTracker {
+    @Setter
+    private Project project;
     private long lastActivityTime = System.currentTimeMillis();
-    private static final long IDLE_TIME_LIMIT = 5 * 60 * 1000; // 5 minutes in milliseconds
+    private static final long IDLE_TIME_LIMIT = 10 * 1000; // 5 seconds in milliseconds
     private Timer timer;
 
     public ActivityTracker() {
@@ -35,7 +39,7 @@ public final class ActivityTracker {
             public void run() {
                 checkIdleTime();
             }
-        }, 0, 1000); // Check every second
+        }, 0, 5 * 1000); // Check every second
     }
 
     private void trackUserActivity() {
@@ -61,14 +65,21 @@ public final class ActivityTracker {
     private void sendIdleNotification() {
         ApplicationManager.getApplication().invokeLater(() -> {
             // Send a notification if user is idle for too long
-            Notification notification = NotificationGroupManager.getInstance()
-                    .getNotificationGroup("com.ctrlaltdefeat.notifications")
-                    .createNotification(
-                            "Time to Take a Break!",
-                            "You’ve been idle for 5 minutes. Please take a break and stretch!",
-                            NotificationType.INFORMATION
-                    );
-            notification.notify(null);
+            String title = "Opaaaa";
+            String content = "Se pare ca ai ramas impotmolit! Ai nevoie de ajutor?";
+            String[] options = {"Dea", "Nah"};
+            int choice = Messages.showDialog(
+                project,
+                content,
+                title,
+                options,
+                0,
+                Messages.getInformationIcon()
+            );
+            if (choice == 0) {
+                System.out.println("Aici vine ajutor de la chat");
+            }
+            lastActivityTime = System.currentTimeMillis();
         });
     }
 }
