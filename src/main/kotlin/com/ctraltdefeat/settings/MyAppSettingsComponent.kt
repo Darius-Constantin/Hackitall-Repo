@@ -11,7 +11,9 @@ import javax.swing.JPanel
 class MyAppSettingsComponent() {
     private var myMainPanel: JPanel?
     private var myWorkTime : JBTextField
+    private lateinit var myWorkTimeLabel : JBLabel
     private var myBreakTime : JBTextField
+    private lateinit var myBreakTimeLabel : JBLabel
 
     init {
         // Initialize components
@@ -23,8 +25,10 @@ class MyAppSettingsComponent() {
             val appSettings = MyAppSettings.getInstance()
             val currentState = appSettings.getState()
 
-            addLabeledComponent(JBLabel("Work Time ${currentState.workTime} :"), myWorkTime, 1, false)
-            addLabeledComponent(JBLabel("Break Time ${currentState.breakTime} :"), myBreakTime, 2, false)
+            myWorkTimeLabel = JBLabel("Work Time ${currentState.workTime} :");
+            addLabeledComponent(myWorkTimeLabel, myWorkTime, 1, false)
+            myBreakTimeLabel = JBLabel("Break Time ${currentState.breakTime} :")
+            addLabeledComponent(myBreakTimeLabel, myBreakTime, 2, false)
             addComponentFillVertically(JPanel(), 0)
         }.panel
     }
@@ -61,4 +65,12 @@ class MyAppSettingsComponent() {
         myWorkTime.text = newWorkTime.toString()
     }
 
+    fun updateDebug() {
+        val appSettings = MyAppSettings.getInstance()
+        val currentState = appSettings.getState()
+        myWorkTimeLabel.text = "Work Time ${currentState.workTime} :"
+        myWorkTime.text = ""
+        myBreakTimeLabel.text = "Break Time ${currentState.breakTime} :"
+        myBreakTime.text = ""
+    }
 }
