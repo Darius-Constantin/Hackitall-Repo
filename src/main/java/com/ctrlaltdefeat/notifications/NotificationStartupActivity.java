@@ -46,7 +46,7 @@ public class NotificationStartupActivity implements StartupActivity {
                                 .getNotificationGroup("com.ctrlaltdefeat.notifications")
                                 .createNotification(
                                         "Notificare pentru relaxare",
-                                        "Ridica-te si intinde-te, esti obosit!",
+                                        "Ridica-te si intinde-te, esti obosit! Ai lucrat " + MyAppSettings.Companion.getInstance().getState().getWorkTime(),
                                         NotificationType.INFORMATION
                                 )
                                 .notify(project)

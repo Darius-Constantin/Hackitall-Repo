@@ -25,6 +25,7 @@ class MyAppSettingsConfigurable : Configurable {
             Objects.requireNonNull(MyAppSettings.getInstance().getState())
         if(localSettingComp.getWorkTime() != 0) state.workTime = localSettingComp.getWorkTime();
         if(localSettingComp.getBreakTime() != 0) state.breakTime = localSettingComp.getBreakTime();
+        MyAppSettings.getInstance().notifyNotifications()
         localSettingComp.updateDebug()
     }
 
