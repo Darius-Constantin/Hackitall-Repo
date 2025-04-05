@@ -35,6 +35,11 @@
                     factoryClass="com.ctrlaltdelete.mood.MoodGraph"
         />
         <backgroundPostStartupActivity implementation="com.ctrlaltdefeat.annotations.AnnotationStartupActivity"/>
+        <postStartupActivity implementation="com.ctrlaltdefeat.notifications.NotificationStartupActivity"/>
+        <postStartupActivity implementation="com.ctrlaltdefeat.notifications.ActivityTrackerStartup" />
+        <notificationGroup id="com.ctrlaltdefeat.notifications"
+                           displayType="BALLOON"
+                           isLogByDefault="false"/>
         <applicationConfigurable parentId="tools" instance="com.ctraltdefeat.settings.MyAppSettingsConfigurable"
                                  id="com.ctraltdefeat.settings.MyAppSettingsConfigurable"
                                  displayName="HEHEHE"/>

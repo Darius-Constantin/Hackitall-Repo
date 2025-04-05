@@ -46,7 +46,7 @@ class MyAppSettingsComponent() {
             return myWorkTime.text.toInt()
         }
         else
-            return 0
+            return MyAppSettings.getInstance().getState().workTime
     }
 
     fun setBreakTime(newBreakTime: Int) {
@@ -58,7 +58,7 @@ class MyAppSettingsComponent() {
             return myBreakTime.text.toInt()
         }
         else
-            return 0
+            return MyAppSettings.getInstance().getState().breakTime
     }
 
     fun setWorkTime(newWorkTime: Int) {

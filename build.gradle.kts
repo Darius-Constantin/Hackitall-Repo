@@ -53,7 +53,9 @@ tasks {
         token.set(System.getenv("PUBLISH_TOKEN"))
     }
 }
-
+dependencies {
+    implementation(kotlin("stdlib-jdk8"))
+}
 kotlin {
     jvmToolchain(17)
 }
