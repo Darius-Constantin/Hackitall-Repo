@@ -29,16 +29,17 @@
         <toolWindow id="Annotation Panel" secondary="true"
                     icon="AllIcons.General.Balloon" anchor="right"
                     factoryClass="com.ctrlaltdefeat.annotations.ui.AnnotationToolWindowFactory"/>
+        <toolWindow id="MoodGraph" secondary="true"
+                    icon="AllIcons.Actions.ArrowExpand"
+                    anchor="right"
+                    factoryClass="com.ctrlaltdelete.mood.MoodGraph"
+        />
         <backgroundPostStartupActivity implementation="com.ctrlaltdefeat.annotations.AnnotationStartupActivity"/>
         <applicationConfigurable parentId="tools" instance="com.ctraltdefeat.settings.MyAppSettingsConfigurable"
                                  id="com.ctraltdefeat.settings.MyAppSettingsConfigurable"
                                  displayName="HEHEHE"/>
         <applicationService serviceImplementation="com.ctraltdefeat.settings.MyAppSettings"/>
         <applicationService serviceImplementation="com.ctrlaltdelete.mood.Mood"/>
-        <toolWindow id="MoodGraph"
-                    anchor="bottom"
-                    factoryClass="com.ctrlaltdelete.mood.MoodGraph"
-        />
     </extensions>
 
     <project-components>
@@ -73,13 +74,13 @@
         </action>
         <action id="com.ctrlaltdefeat.annotations.actions.QuestionOnAnnotationAction"
                 class="com.ctrlaltdefeat.annotations.actions.QuestionOnAnnotationAction"
-                text="Ask question"
+                text="Ask Question"
                 description="Request more information from your team&#39;s members.">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
         <action id="com.ctrlaltdelete.mood.MoodTriggerAction"
                 class="com.ctrlaltdelete.mood.MoodTriggerAction"
-                text="Lauch Mood Manually" description="Debug Mood Dialog Launch">
+                text="Lauch Mood Manually" description="Debug mood dialog launch">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
         </action>
     </actions>

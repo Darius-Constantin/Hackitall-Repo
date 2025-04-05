@@ -18,6 +18,7 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.30")
     implementation("org.json:json:20231013")
     implementation("com.openai:openai-java:0.44.2")
+    implementation(kotlin("stdlib-jdk8"))
 }
 
 // Configure Gradle IntelliJ Plugin
@@ -25,7 +26,7 @@ dependencies {
 intellij {
     version.set("2024.1.7")
     type.set("IC") // Target IDE Platform
-    
+
     plugins.set(listOf("com.intellij.java"))
 }
 
@@ -52,9 +53,7 @@ tasks {
         token.set(System.getenv("PUBLISH_TOKEN"))
     }
 }
-dependencies {
-    implementation(kotlin("stdlib-jdk8"))
-}
+
 kotlin {
     jvmToolchain(17)
 }
