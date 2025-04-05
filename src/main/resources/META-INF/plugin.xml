@@ -30,6 +30,11 @@
                                  id="com.ctraltdefeat.settings.MyAppSettingsConfigurable"
                                  displayName="HEHEHE"/>
         <applicationService serviceImplementation="com.ctraltdefeat.settings.MyAppSettings"/>
+        <applicationService serviceImplementation="com.ctrlaltdelete.mood.Mood"/>
+        <toolWindow id="MoodGraph"
+                    anchor="bottom"
+                    factoryClass="com.ctrlaltdelete.mood.MoodGraph"
+        />
     </extensions>
 
     <actions>
@@ -47,6 +52,11 @@
                 class="com.ctrlaltdefeat.annotations.DeleteAnnotationAction"
                 text="Delete Annotation" description="Deletes the selected annotation.">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+        <action id="com.ctrlaltdelete.mood.MoodTriggerAction"
+                class="com.ctrlaltdelete.mood.MoodTriggerAction"
+                text="Lauch Mood Manually" description="Debug Mood Dialog Launch">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
         </action>
     </actions>
 
