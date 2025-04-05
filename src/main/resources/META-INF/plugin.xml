@@ -1,0 +1,49 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>com.ctrlaltdefeat</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>Demo1</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="darius.constantin04@stud.acs.upb.com" url="">CTRL-ALT
+        -DEFEAT</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description><![CDATA[
+    A stressless plugin. This data will fill the rest with the 40 characters.<br>
+  ]]></description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.java</depends>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+    </extensions>
+
+    <actions>
+        <action id="com.ctrlaltdefeat.annotations.AddAnnotationAction"
+                class="com.ctrlaltdefeat.annotations.AddAnnotationAction"
+                text="Create Annotation" description="Creates an annotation for the highlighted lines.">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+        <action id="com.ctrlaltdefeat.annotations.OpenAnnotationAction"
+                class="com.ctrlaltdefeat.annotations.OpenAnnotationAction"
+                text="Open Annotation" description="Opens the selected annotation.">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+        <action id="com.ctrlaltdefeat.annotations.DeleteAnnotationAction"
+                class="com.ctrlaltdefeat.annotations.DeleteAnnotationAction"
+                text="Delete Annotation" description="Deletes the selected annotation.">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+    </actions>
+
+</idea-plugin>
