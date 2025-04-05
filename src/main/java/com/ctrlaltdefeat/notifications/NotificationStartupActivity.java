@@ -45,8 +45,8 @@ public class NotificationStartupActivity implements StartupActivity {
                         NotificationGroupManager.getInstance()
                                 .getNotificationGroup("com.ctrlaltdefeat.notifications")
                                 .createNotification(
-                                        "Notificare pentru JEGOSI",
-                                        "SPALATE LA CUR!!!!",
+                                        "Notificare pentru relaxare",
+                                        "Ridica-te si intinde-te, esti obosit!",
                                         NotificationType.INFORMATION
                                 )
                                 .notify(project)

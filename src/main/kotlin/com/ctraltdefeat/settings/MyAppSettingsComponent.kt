@@ -42,11 +42,11 @@ class MyAppSettingsComponent() {
     }
 
     fun getWorkTime(): Int {
-        if(myWorkTime.text.isNotEmpty() && myWorkTime.text.isNotBlank()){
-            return myWorkTime.text.toInt()
-        }
-        else
-            return 0
+//        if(myWorkTime.text.isNotEmpty() && myWorkTime.text.isNotBlank()){
+//            return myWorkTime.text.toInt()
+//        }
+//        else
+            return 5
     }
 
     fun setBreakTime(newBreakTime: Int) {
