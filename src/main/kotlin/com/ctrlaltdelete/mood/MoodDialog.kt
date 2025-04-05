@@ -1,0 +1,42 @@
+package com.ctrlaltdelete.mood
+
+import com.intellij.openapi.ui.DialogWrapper
+import com.intellij.util.Time
+import groovy.lang.Tuple3
+import java.util.*
+import javax.swing.JComponent
+import groovy.lang.Tuple2
+import java.time.LocalDateTime
+import java.util.Date
+import kotlin.time.Duration.Companion.hours
+
+
+class MoodDialog : DialogWrapper(true) {
+    var localComponent : MoodDialogComponent = MoodDialogComponent()
+
+    init{
+        title = "Mood"
+        init()
+    }
+
+    override fun createCenterPanel(): JComponent? {
+        localComponent = MoodDialogComponent()
+
+        return localComponent.getPanel()
+    }
+
+    override fun getExitCode(): Int {
+        return super.getExitCode()
+    }
+
+    override fun doOKAction() {
+        var dataCode : Int = 0;
+        dataCode += LocalDateTime.now().dayOfMonth *100000
+        dataCode += LocalDateTime.now().hour * 1000
+        dataCode += localComponent.getSliderValue()
+
+        Mood.getInstance().getState().moodList.add(dataCode)
+
+        super.doOKAction()
+    }
+}
