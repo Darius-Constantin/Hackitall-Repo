@@ -8,7 +8,7 @@
     <name>Demo1</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor email="darius.constantin04@stud.acs.upb.com" url="">CTRL-ALT
+    <vendor email="darius.constantin04@stud.acs.upb.com">CTRL-ALT
         -DEFEAT</vendor>
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
@@ -26,6 +26,10 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
+        <postStartupActivity implementation="com.ctrlaltdefeat.notifications.NotificationStartupActivity"/>
+        <notificationGroup id="com.ctrlaltdefeat.notifications"
+                           displayType="BALLOON"
+                           isLogByDefault="false"/>
     </extensions>
 
     <actions>
