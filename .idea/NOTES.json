@@ -1,0 +1,48 @@
+{
+  "build.gradle.kts": [
+    {
+      "note": "",
+      "startingOffset": 863,
+      "endOffset": 1029,
+      "r": 255,
+      "g": 0,
+      "b": 0
+    },
+    {
+      "note": "",
+      "startingOffset": 1046,
+      "endOffset": 1231,
+      "r": 0,
+      "g": 255,
+      "b": 255
+    },
+    {
+      "note": "wqeqwtqqwtq",
+      "startingOffset": 414,
+      "endOffset": 677,
+      "r": 0,
+      "g": 102,
+      "b": 255
+    }
+  ],
+  "src/main/java/genericUI/BrightnessSlider.java": [
+    {
+      "note": "- **Purpose:** This code defines a custom slider component for adjusting brightness, with a specified hue and saturation.\n- **Quirks:** \n  - The slider range is set from 0 to 100 for brightness.\n  - It disables painting of ticks and labels on the slider.\n  - It sets a preferred size of 300x30 for the slider component.\n- **Explanation:** The code creates a slider to adjust brightness levels for a specific hue and saturation, with a customized appearance using a GradientSliderUI.",
+      "startingOffset": 168,
+      "endOffset": 538,
+      "r": 51,
+      "g": 255,
+      "b": 0
+    }
+  ],
+  "gradle.properties": [
+    {
+      "note": "",
+      "startingOffset": 273,
+      "endOffset": 396,
+      "r": 51,
+      "g": 255,
+      "b": 0
+    }
+  ]
+}

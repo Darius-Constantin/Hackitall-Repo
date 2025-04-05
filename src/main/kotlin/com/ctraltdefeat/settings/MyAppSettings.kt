@@ -14,6 +14,9 @@ class MyAppSettings : PersistentStateComponent<MyAppSettings.State> {
     class State{
         var workTime : Int = 55;
         var breakTime : Int = 5;
+        var gitRepo : String = ""
+        var gitBranch : String = ""
+        var teamID : String = ""
     }
 
     private var myState: State = State()

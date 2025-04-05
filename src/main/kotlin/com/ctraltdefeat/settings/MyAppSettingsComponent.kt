@@ -1,36 +1,58 @@
 package com.ctraltdefeat.settings
 
+import com.intellij.ui.IdeBorderFactory
+import com.intellij.ui.SideBorder
+import com.intellij.ui.TitledSeparator
 import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBTextField
 import com.intellij.util.ui.FormBuilder
+import com.intellij.util.ui.JBUI
+import javax.swing.BorderFactory
 import javax.swing.JComponent
 import javax.swing.JPanel
+import javax.swing.text.DocumentFilter
+import javax.swing.text.PlainDocument
 
 
 class MyAppSettingsComponent() {
     private var myMainPanel: JPanel?
     private var myWorkTime : JBTextField
-    private lateinit var myWorkTimeLabel : JBLabel
+    private var myWorkTimeLabel : JBLabel
     private var myBreakTime : JBTextField
-    private lateinit var myBreakTimeLabel : JBLabel
+    private var myBreakTimeLabel : JBLabel
 
     init {
-        // Initialize components
         myWorkTime = JBTextField()
+        (myWorkTime.document as? PlainDocument)?.documentFilter = NumericDocumentFilter()
         myBreakTime = JBTextField()
+        (myBreakTime.document as? PlainDocument)?.documentFilter = NumericDocumentFilter()
 
-        // Build form and add components
-        myMainPanel = FormBuilder.createFormBuilder().apply {
+        val formPanel = FormBuilder.createFormBuilder().apply {
             val appSettings = MyAppSettings.getInstance()
-            val currentState = appSettings.getState()
+            val currentState = appSettings.state
 
-            myWorkTimeLabel = JBLabel("Work Time ${currentState.workTime} :");
+            myWorkTime.text = "${currentState.workTime}"
+            myBreakTime.text = "${currentState.breakTime}"
+
+            addComponent(TitledSeparator("Wellness Settings"))
+            myWorkTimeLabel = JBLabel("Work time");
             addLabeledComponent(myWorkTimeLabel, myWorkTime, 1, false)
-            myBreakTimeLabel = JBLabel("Break Time ${currentState.breakTime} :")
+            myBreakTimeLabel = JBLabel("Break time")
             addLabeledComponent(myBreakTimeLabel, myBreakTime, 2, false)
-            addComponentFillVertically(JPanel(), 0)
+
+            addComponent(TitledSeparator("Collaboration Settings"))
+            myWorkTimeLabel = JBLabel("Git repository link");
+            addLabeledComponent(myWorkTimeLabel, myWorkTime, 1, false)
+            myBreakTimeLabel = JBLabel("Team ID")
+            addLabeledComponent(myBreakTimeLabel, myBreakTime, 2, false)
+            myBreakTimeLabel = JBLabel("Server IP")
+            addLabeledComponent(myBreakTimeLabel, myBreakTime, 3, false)
+            myBreakTimeLabel = JBLabel("Server port")
+            addLabeledComponent(myBreakTimeLabel, myBreakTime, 4, false)
         }.panel
+
+        myMainPanel = formPanel
     }
 
     fun getPanel(): JPanel? {
@@ -42,11 +64,10 @@ class MyAppSettingsComponent() {
     }
 
     fun getWorkTime(): Int {
-        if(myWorkTime.text.isNotEmpty() && myWorkTime.text.isNotBlank()){
-            return myWorkTime.text.toInt()
-        }
-        else
-            return MyAppSettings.getInstance().getState().workTime
+        return if(myWorkTime.text.isNotEmpty() && myWorkTime.text.isNotBlank()){
+            myWorkTime.text.toInt()
+        } else
+            MyAppSettings.getInstance().state.workTime
     }
 
     fun setBreakTime(newBreakTime: Int) {
@@ -54,11 +75,10 @@ class MyAppSettingsComponent() {
     }
 
     fun getBreakTime() : Int {
-        if(myBreakTime.text.isNotEmpty() && myBreakTime.text.isNotBlank()){
-            return myBreakTime.text.toInt()
-        }
-        else
-            return MyAppSettings.getInstance().getState().breakTime
+        return if(myBreakTime.text.isNotEmpty() && myBreakTime.text.isNotBlank()){
+            myBreakTime.text.toInt()
+        } else
+            MyAppSettings.getInstance().state.breakTime
     }
 
     fun setWorkTime(newWorkTime: Int) {
@@ -67,10 +87,8 @@ class MyAppSettingsComponent() {
 
     fun updateDebug() {
         val appSettings = MyAppSettings.getInstance()
-        val currentState = appSettings.getState()
-        myWorkTimeLabel.text = "Work Time ${currentState.workTime} :"
-        myWorkTime.text = ""
-        myBreakTimeLabel.text = "Break Time ${currentState.breakTime} :"
-        myBreakTime.text = ""
+        val currentState = appSettings.state
+        myWorkTime.text = "${currentState.workTime}"
+        myBreakTime.text = "${currentState.breakTime}"
     }
 }

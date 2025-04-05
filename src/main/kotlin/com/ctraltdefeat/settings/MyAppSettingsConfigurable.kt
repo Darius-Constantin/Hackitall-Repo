@@ -15,14 +15,14 @@ class MyAppSettingsConfigurable : Configurable {
 
     override fun isModified(): Boolean {
         val state: MyAppSettings.State =
-            Objects.requireNonNull(MyAppSettings.getInstance().getState())
-        return !localSettingComp.getWorkTime().equals(state.workTime) ||
+            Objects.requireNonNull(MyAppSettings.getInstance().state)
+        return localSettingComp.getWorkTime() != state.workTime ||
                 localSettingComp.getBreakTime() != state.breakTime;
     }
 
     override fun apply() {
         val state: MyAppSettings.State =
-            Objects.requireNonNull(MyAppSettings.getInstance().getState())
+            Objects.requireNonNull(MyAppSettings.getInstance().state)
         if(localSettingComp.getWorkTime() != 0) state.workTime = localSettingComp.getWorkTime();
         if(localSettingComp.getBreakTime() != 0) state.breakTime = localSettingComp.getBreakTime();
         MyAppSettings.getInstance().notifyNotifications()
