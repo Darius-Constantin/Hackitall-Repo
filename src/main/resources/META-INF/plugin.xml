@@ -34,7 +34,6 @@
                     anchor="right"
                     factoryClass="com.ctrlaltdelete.mood.MoodGraph"
         />
-        <backgroundPostStartupActivity implementation="com.ctrlaltdefeat.annotations.AnnotationStartupActivity"/>
         <postStartupActivity implementation="com.ctrlaltdefeat.notifications.NotificationStartupActivity"/>
         <postStartupActivity implementation="com.ctrlaltdefeat.notifications.ActivityTrackerStartup" />
         <notificationGroup id="com.ctrlaltdefeat.notifications"

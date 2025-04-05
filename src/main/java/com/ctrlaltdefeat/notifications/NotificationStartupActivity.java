@@ -1,8 +1,6 @@
 package com.ctrlaltdefeat.notifications;
 
 import com.ctraltdefeat.settings.MyAppSettings;
-import com.intellij.notification.NotificationGroupManager;
-import com.intellij.notification.NotificationType;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.startup.StartupActivity;

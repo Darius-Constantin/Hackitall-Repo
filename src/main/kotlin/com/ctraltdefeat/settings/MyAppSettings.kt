@@ -12,8 +12,8 @@ import com.intellij.openapi.components.Storage
 class MyAppSettings : PersistentStateComponent<MyAppSettings.State> {
 
     class State{
-        var workTime : Int = 0;
-        var breakTime : Int = 0;
+        var workTime : Int = 55;
+        var breakTime : Int = 5;
     }
 
     private var myState: State = State()
