@@ -18,7 +18,10 @@ class MyAppSettings : PersistentStateComponent<MyAppSettings.State> {
 
     private var myState: State = State()
 
-    companion object{
+    // Companion object to get instance of the service
+    companion object {
+        // JvmStatic annotation ensures the companion object method is static
+        @JvmStatic  // This makes getInstance a static method in Java
         fun getInstance(): MyAppSettings {
             return ApplicationManager.getApplication().getService(MyAppSettings::class.java)
         }

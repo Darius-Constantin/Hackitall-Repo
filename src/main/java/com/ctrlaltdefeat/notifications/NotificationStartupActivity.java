@@ -1,5 +1,6 @@
 package com.ctrlaltdefeat.notifications;
 
+import com.ctraltdefeat.settings.MyAppSettings;
 import com.intellij.notification.NotificationGroupManager;
 import com.intellij.notification.NotificationType;
 import com.intellij.openapi.application.ApplicationManager;
@@ -19,8 +20,14 @@ public class NotificationStartupActivity implements StartupActivity {
     @Override
     public void runActivity(@NotNull Project project) {
 
-        //int interval = NotificationSettings.getInstance().getIntervalMinutes();
-        int interval = 5;
+        // Access the settings instance
+        MyAppSettings settings = MyAppSettings.Companion.getInstance();
+
+        // Get the workTime and breakTime values from settings
+        int workTime = settings.getState().getWorkTime();  // Get work time from the state
+        System.out.println(workTime);
+        int breakTime = settings.getState().getBreakTime();  // Get break time from the state
+
 
         scheduler.scheduleAtFixedRate(() -> ApplicationManager.getApplication().invokeLater(() -> {
             NotificationGroupManager.getInstance()
@@ -31,6 +38,6 @@ public class NotificationStartupActivity implements StartupActivity {
                             NotificationType.INFORMATION
                     )
                     .notify(project);
-        }), 0, interval, TimeUnit.SECONDS);
+        }), 0, workTime, TimeUnit.SECONDS);
     }
 }
