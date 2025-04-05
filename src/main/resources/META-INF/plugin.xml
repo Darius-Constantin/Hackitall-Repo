@@ -8,7 +8,7 @@
     <name>Demo1</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor email="darius.constantin04@stud.acs.upb.com">CTRL-ALT
+    <vendor email="darius.constantin04@stud.acs.upb.com" url="">CTRL-ALT
         -DEFEAT</vendor>
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
@@ -30,6 +30,10 @@
         <notificationGroup id="com.ctrlaltdefeat.notifications"
                            displayType="BALLOON"
                            isLogByDefault="false"/>
+        <applicationConfigurable parentId="tools" instance="com.ctraltdefeat.settings.MyAppSettingsConfigurable"
+                                 id="com.ctraltdefeat.settings.MyAppSettingsConfigurable"
+                                 displayName="HEHEHE"/>
+        <applicationService serviceImplementation="com.ctraltdefeat.settings.MyAppSettings"/>
     </extensions>
 
     <actions>
