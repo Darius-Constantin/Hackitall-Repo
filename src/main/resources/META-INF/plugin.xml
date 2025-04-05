@@ -26,24 +26,47 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
+        <toolWindow id="Annotation Panel" secondary="true"
+                    icon="AllIcons.General.Balloon" anchor="right"
+                    factoryClass="com.ctrlaltdefeat.annotations.ui.AnnotationToolWindowFactory"/>
+        <backgroundPostStartupActivity implementation="com.ctrlaltdefeat.annotations.AnnotationStartupActivity"/>
     </extensions>
 
+    <project-components>
+        <component>
+            <implementation-class>com.ctrlaltdefeat.annotations.AnnotationFileOpenListener</implementation-class>
+        </component>
+    </project-components>
+
+    <applicationListeners>
+        <listener class="com.ctrlaltdefeat.annotations.AnnotationProjectManagerListener"
+                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
+    </applicationListeners>
+
     <actions>
-        <action id="com.ctrlaltdefeat.annotations.AddAnnotationAction"
-                class="com.ctrlaltdefeat.annotations.AddAnnotationAction"
+        <action id="com.ctrlaltdefeat.annotations.actions.AddAnnotationAction"
+                class="com.ctrlaltdefeat.annotations.actions.AddAnnotationAction"
                 text="Create Annotation" description="Creates an annotation for the highlighted lines.">
+            <keyboard-shortcut keymap="$default" first-keystroke="alt M"/>
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
-        <action id="com.ctrlaltdefeat.annotations.OpenAnnotationAction"
-                class="com.ctrlaltdefeat.annotations.OpenAnnotationAction"
+        <action id="com.ctrlaltdefeat.annotations.actions.OpenAnnotationAction"
+                class="com.ctrlaltdefeat.annotations.actions.OpenAnnotationAction"
                 text="Open Annotation" description="Opens the selected annotation.">
+            <keyboard-shortcut keymap="$default" first-keystroke="alt E"/>
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
-        <action id="com.ctrlaltdefeat.annotations.DeleteAnnotationAction"
-                class="com.ctrlaltdefeat.annotations.DeleteAnnotationAction"
+        <action id="com.ctrlaltdefeat.annotations.actions.DeleteAnnotationAction"
+                class="com.ctrlaltdefeat.annotations.actions.DeleteAnnotationAction"
                 text="Delete Annotation" description="Deletes the selected annotation.">
+            <keyboard-shortcut keymap="$default" first-keystroke="alt D"/>
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+        <action id="com.ctrlaltdefeat.annotations.actions.QuestionOnAnnotationAction"
+                class="com.ctrlaltdefeat.annotations.actions.QuestionOnAnnotationAction"
+                text="Ask question"
+                description="Request more information from your team&#39;s members.">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
     </actions>
-
 </idea-plugin>

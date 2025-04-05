@@ -11,12 +11,20 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    implementation("com.google.code.gson:gson:2.10.1")
+    compileOnly("org.projectlombok:lombok:1.18.30")
+    annotationProcessor("org.projectlombok:lombok:1.18.30")
+    implementation("org.json:json:20231013")
+    implementation("com.openai:openai-java:0.44.2")
+}
+
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
     version.set("2024.1.7")
     type.set("IC") // Target IDE Platform
-
+    
     plugins.set(listOf("com.intellij.java"))
 }
 

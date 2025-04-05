@@ -1,5 +1,6 @@
-package com.ctrlaltdefeat.annotations;
+package com.ctrlaltdefeat.annotations.actions;
 
+import com.ctrlaltdefeat.annotations.AnnotationStorage;
 import com.intellij.codeInsight.daemon.DaemonCodeAnalyzer;
 import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -17,24 +18,6 @@ public class DeleteAnnotationAction extends AnnotationAction {
     }
 
     @Override
-    public void update(@NotNull AnActionEvent event) {
-        Project project = event.getProject();
-        if (project == null) {
-            event.getPresentation().setEnabled(false);
-            return;
-        };
-
-        Editor editor = FileEditorManager.getInstance(project).getSelectedTextEditor();
-        if (editor == null) {
-            event.getPresentation().setEnabled(false);
-            return;
-        };
-
-        annotation = isInsideAnnotation(project, editor);
-        event.getPresentation().setEnabledAndVisible(annotation != null);
-    }
-
-    @Override
     public void actionPerformed(@NotNull AnActionEvent event) {
         Project project = event.getProject();
         if (project == null) return;
@@ -42,6 +25,9 @@ public class DeleteAnnotationAction extends AnnotationAction {
         Editor editor = FileEditorManager.getInstance(project).getSelectedTextEditor();
         if (editor == null || annotation == null) return;
 
+        if (AnnotationStorage.getCurrentAnnotation() == annotation) {
+            AnnotationStorage.setCurrentAnnotation(null);
+        }
         annotation.remove();
 
         PsiFile file = PsiDocumentManager.getInstance(project).getPsiFile(editor.getDocument());
