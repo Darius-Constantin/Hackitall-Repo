@@ -26,6 +26,10 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
+        <applicationConfigurable parentId="tools" instance="com.ctraltdefeat.settings.MyAppSettingsConfigurable"
+                                 id="com.ctraltdefeat.settings.MyAppSettingsConfigurable"
+                                 displayName="HEHEHE"/>
+        <applicationService serviceImplementation="com.ctraltdefeat.settings.MyAppSettings"/>
     </extensions>
 
     <actions>
