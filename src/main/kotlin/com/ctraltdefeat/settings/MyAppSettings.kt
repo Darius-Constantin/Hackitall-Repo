@@ -34,4 +34,16 @@ class MyAppSettings : PersistentStateComponent<MyAppSettings.State> {
     override fun loadState(state: State) {
         myState = state
     }
+
+    // Listening logic
+
+    private val listeners = mutableListOf<() -> Unit>()
+
+    fun addChangeListener(listener: () -> Unit) {
+        listeners.add(listener)
+    }
+
+    fun notifyNotifications() {
+        listeners.forEach { it.invoke() }
+    }
 }
