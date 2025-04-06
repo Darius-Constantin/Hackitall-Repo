@@ -10,7 +10,7 @@ import javax.swing.event.ChangeEvent
 
 class MoodDialogComponent() : JComponent() {
     private var myPanel : JPanel = JPanel()
-    private var mySlider : JSlider = JSlider(JSlider.HORIZONTAL, 1, 5, 1)
+    private var mySlider : JSlider = JSlider(JSlider.HORIZONTAL, 1, 5, 3)
     private var myLabel : JLabel = JLabel("How is your mood today? Currently : ${mySlider.value}")
 
     init{
@@ -22,7 +22,7 @@ class MoodDialogComponent() : JComponent() {
 
         myPanel.apply {
             setLayout(GridLayout(2, 2))
-            add(JLabel("/*${Mood.getInstance().state.moodList}*/ mood list"))
+            //add(JLabel("/*${Mood.getInstance().state.moodList}*/ mood list"))
             add(myLabel)
             add(mySlider)
         }

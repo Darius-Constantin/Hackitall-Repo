@@ -52,8 +52,28 @@ tasks {
         token.set(System.getenv("PUBLISH_TOKEN"))
     }
 }
+
+val javaFxVersion = "17.0.9" // or 21.0.2, etc.
+
+val osName = when {
+    org.gradle.internal.os.OperatingSystem.current().isWindows -> "win"
+    org.gradle.internal.os.OperatingSystem.current().isMacOsX -> "mac"
+    else -> "linux"
+}
+
+dependencies {
+    implementation("org.openjfx:javafx-base:$javaFxVersion:$osName")
+    implementation("org.openjfx:javafx-controls:$javaFxVersion:$osName")
+    implementation("org.openjfx:javafx-graphics:$javaFxVersion:$osName")
+    // Add more if needed: javafx-fxml, javafx-media, etc.
+}
+
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
+    implementation("org.jetbrains.lets-plot:lets-plot-kotlin-jvm:4.4.0")
+    implementation("org.jetbrains.lets-plot:lets-plot-jfx:4.4.0") // OR lets-plot-swing
+    implementation("org.jetbrains.lets-plot:lets-plot-batik:4.4.0")
+    implementation("xerces:xercesImpl:2.12.2")
 }
 kotlin {
     jvmToolchain(17)

@@ -31,11 +31,13 @@ class MoodDialog : DialogWrapper(true) {
 
     override fun doOKAction() {
         var dataCode : Int = 0;
-        dataCode += LocalDateTime.now().dayOfMonth *100000
-        dataCode += LocalDateTime.now().hour * 1000
+        dataCode += LocalDateTime.now().dayOfMonth *1000
+        dataCode += LocalDateTime.now().hour * 10
         dataCode += localComponent.getSliderValue()
 
         Mood.getInstance().getState().moodList.add(dataCode)
+
+        //Mood.getInstance().getState().moodList= mutableListOf(6101, 6122, 6143, 6151, 6184)
 
         super.doOKAction()
     }
