@@ -83,7 +83,7 @@ public final class ActivityTracker {
                     try {
                         MyOpenAIClient client = new MyOpenAIClient();
                         String prompt = buildContextPrompt(project);
-                        String suggestion = client.generateText(prompt, 300);
+                        String suggestion = client.generateText(prompt, 1.0f, 300);
 
                         Messages.showDialog(
                                 project,

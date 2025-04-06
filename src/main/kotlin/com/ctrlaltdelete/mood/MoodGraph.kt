@@ -122,7 +122,8 @@ Suggestions should be calm activities appropriate for right now, such as:
 Keep it short and kind — like a check-in from a helpful companion.
 """.trimIndent()
 
-        val responseText = "<html><div style='width:200px; color:white;'>${client.generateText(prompt).replace("\n", "<br><br>")}</div></html>"
+        val responseText = "<html><div style='width:200px; color:white;'>${client
+            .generateText(prompt, 1.0f, 150).replace("\n", "<br><br>")}</div></html>"
         val responseLabel = JLabel(responseText)
         responseLabel.alignmentX = Component.LEFT_ALIGNMENT
         chatPanel.add(responseLabel)

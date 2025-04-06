@@ -1,54 +1,10 @@
 {
-  "build.gradle.kts": [
-    {
-      "note": "",
-      "startingOffset": 863,
-      "endOffset": 1029,
-      "r": 255,
-      "g": 0,
-      "b": 0
-    },
-    {
-      "note": "",
-      "startingOffset": 1046,
-      "endOffset": 1231,
-      "r": 0,
-      "g": 255,
-      "b": 255
-    },
-    {
-      "note": "wqeqwtqqwtq",
-      "startingOffset": 414,
-      "endOffset": 677,
-      "r": 0,
-      "g": 102,
-      "b": 255
-    }
-  ],
   "src/main/java/genericUI/BrightnessSlider.java": [
     {
-      "note": "- **Purpose:** This code defines a custom slider component for adjusting brightness, with a specified hue and saturation.\n- **Quirks:** \n  - The slider range is set from 0 to 100 for brightness.\n  - It disables painting of ticks and labels on the slider.\n  - It sets a preferred size of 300x30 for the slider component.\n- **Explanation:** The code creates a slider to adjust brightness levels for a specific hue and saturation, with a customized appearance using a GradientSliderUI.",
+      "note": "This code is a constructor for a BrightnessSlider class that sets up a slider component for adjusting brightness based on the given hue and saturation values. It initializes the slider with a range from 0 to 100, hides ticks and labels, sets preferred size, and applies a custom UI for gradient appearance. One potential quirk could be the hard-coded range values, which may limit flexibility if the range needs to be changed in the future. A suggestion for improvement would be to make the range values configurable parameters to enhance the slider\u0027s reusability.",
       "startingOffset": 168,
       "endOffset": 538,
-      "r": 51,
-      "g": 255,
-      "b": 0
-    },
-    {
-      "note": "This code snippet sets up a slider component with specific preferences like not painting ticks or labels, a preferred size of 300x30, and a custom UI with gradient effect. It also has a method to set the hue and saturation values for the slider. One potential quirk could be that the method setHueSaturation() is missing some implementation details like setting the saturation value. Also, the snippet seems to be incomplete as it doesn\u0027t show the full context of the class or the rest of the methods.",
-      "startingOffset": 371,
-      "endOffset": 627,
-      "r": 255,
-      "g": 0,
-      "b": 0
-    }
-  ],
-  "gradle.properties": [
-    {
-      "note": "",
-      "startingOffset": 273,
-      "endOffset": 396,
-      "r": 51,
+      "r": 55,
       "g": 255,
       "b": 0
     }
