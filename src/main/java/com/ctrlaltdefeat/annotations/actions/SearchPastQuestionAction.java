@@ -2,10 +2,8 @@ package com.ctrlaltdefeat.annotations.actions;
 
 import com.ctrlaltdefeat.utils.GitUtils;
 import com.ctrlaltdefeat.utils.safeStorageUtil;
-import com.intellij.notification.NotificationGroup;
 import com.intellij.notification.NotificationGroupManager;
 import com.intellij.notification.NotificationType;
-import com.intellij.notification.NotificationsManager;
 import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
@@ -13,14 +11,12 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ProjectRootManager;
-import com.intellij.openapi.ui.Messages;
 import groovy.lang.Tuple2;
 import openAI.MyOpenAIClient;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.io.File;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -89,13 +85,11 @@ public class SearchPastQuestionAction extends AnnotationAction {
                     htmlMessage.append("</ul></body></html>");
 
                     // Create a custom dialog with the HTML message using JEditorPane
-                    JEditorPane editorPane = new JEditorPane("text/html", htmlMessage.toString());
+                    JTextArea editorPane = new JTextArea(htmlMessage.toString());
                     editorPane.setEditable(false); // Make it non-editable
 
-                    JScrollPane scrollPane = new JScrollPane(editorPane);
-
                     // Show the custom dialog with the HTML content
-                    JOptionPane.showMessageDialog(null, scrollPane,
+                    JOptionPane.showMessageDialog(null, editorPane,
                             "Code-Related Issues", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     NotificationGroupManager.getInstance()

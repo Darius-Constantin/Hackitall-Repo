@@ -12,13 +12,13 @@ public class MyOpenAIClient {
 
     public String analyzeCode(String code) {
         try {
-            return generateText(createAnalysisPrompt(code));
+            return generateText(createAnalysisPrompt(code), 1.f);
         } catch (Exception e) {
             return "Could not generate: " + e.getMessage();
         }
     }
 
-    public String generateText(String prompt) throws Exception {
+    public String generateText(String prompt, float temp) throws Exception {
         OpenAIClient client = OpenAIOkHttpClient.builder()
                 .apiKey(OPENAI_API_KEY)
                 .build();
@@ -26,7 +26,7 @@ public class MyOpenAIClient {
         ResponseCreateParams params = ResponseCreateParams.builder()
                 .input(prompt)
                 .model(ChatModel.GPT_3_5_TURBO)
-                .temperature(0.5)
+                .temperature(temp)
                 .maxOutputTokens(150)
                 .build();
 
@@ -52,10 +52,12 @@ public class MyOpenAIClient {
 
     public boolean isCodeRelated(String needle, String hay) {
         try {
-            return generateText(createAnalysisPrompt("Compare these two pieces of code. Answer only \"yes\" if they are similar enough " +
+            String res = generateText("Compare these two pieces of code. Answer only \"yes\" if they are similar enough " +
                     "and both are clarifying something about the code. Answer only \"no\" if you do " +
-                    "not consider that.\n" +
-                    "Piece of code one: " + needle + "\nSecond piece of code: " + hay + "\n")).equals("yes");
+                    "not consider that. Again, do not say anything else other than 'yes' and " +
+                    "'no'\n Piece of code one: " + needle + "\nSecond piece of code: " + hay +
+                    "\n", 0);
+            return res.equalsIgnoreCase("yes");
         } catch (Exception e) {
             return false;
         }
