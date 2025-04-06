@@ -1,7 +1,6 @@
 plugins {
     id("java")
     id("org.jetbrains.intellij") version "1.17.4"
-//    id("org.jetbrains.kotlin.jvm") version "1.9.25"
     kotlin("jvm")
 }
 
@@ -19,24 +18,24 @@ dependencies {
     implementation("org.json:json:20231013")
     implementation("com.openai:openai-java:0.44.2")
     implementation(kotlin("stdlib-jdk8"))
+    implementation("com.github.adedayo.intellij.sdk:git4idea:142.1")
+    implementation("io.socket:socket.io-client:2.0.1") {
+        exclude(group = "org.json", module = "json") // Avoid JSON conflict
+    }
 }
 
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
     version.set("2024.1.7")
-    type.set("IC") // Target IDE Platform
+    type.set("IC")
 
     plugins.set(listOf("com.intellij.java"))
 }
 
 tasks {
-    // Set the JVM compatibility versions
     withType<JavaCompile> {
     }
-//    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-//        kotlinOptions.jvmTarget = "17"
-//    }
 
     patchPluginXml {
         sinceBuild.set("241")

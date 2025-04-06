@@ -25,7 +25,7 @@ public final class ActivityTracker {
     @Setter
     private Project project;
     private long lastActivityTime = System.currentTimeMillis();
-    private static final long IDLE_TIME_LIMIT = 10 * 1000; // 5 seconds in milliseconds
+    private static final long IDLE_TIME_LIMIT = 10 * 1000 * 100; // 5 * 100 seconds in milliseconds
     private Timer timer;
 
     public ActivityTracker() {

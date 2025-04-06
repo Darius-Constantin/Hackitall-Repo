@@ -34,14 +34,18 @@
                     anchor="right"
                     factoryClass="com.ctrlaltdelete.mood.MoodGraph"
         />
+        <postStartupActivity implementation="com.GitNotificationStartupActivity"/>
         <postStartupActivity implementation="com.ctrlaltdefeat.notifications.NotificationStartupActivity"/>
         <postStartupActivity implementation="com.ctrlaltdefeat.notifications.ActivityTrackerStartup" />
         <notificationGroup id="com.ctrlaltdefeat.notifications"
                            displayType="BALLOON"
                            isLogByDefault="false"/>
+        <notificationGroup id="com.ctrlaltdefeat.gitNotifications"
+                           displayType="BALLOON"
+                           isLogByDefault="false"/>
         <applicationConfigurable parentId="tools" instance="com.ctraltdefeat.settings.MyAppSettingsConfigurable"
                                  id="com.ctraltdefeat.settings.MyAppSettingsConfigurable"
-                                 displayName="HEHEHE"/>
+                                 displayName="Stressless"/>
         <applicationService serviceImplementation="com.ctraltdefeat.settings.MyAppSettings"/>
         <applicationService serviceImplementation="com.ctrlaltdelete.mood.Mood"/>
     </extensions>
@@ -80,6 +84,12 @@
                 class="com.ctrlaltdefeat.annotations.actions.QuestionOnAnnotationAction"
                 text="Ask Question"
                 description="Request more information from your team&#39;s members.">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+        <action id="com.ctrlaltdefeat.annotations.actions.SearchPastQuestionAction"
+                class="com.ctrlaltdefeat.annotations.actions.SearchPastQuestionAction"
+                text="Search Past Questions"
+                description="Use UI to search for past questions that are related the selected code.">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
         <action id="com.ctrlaltdelete.mood.MoodTriggerAction"

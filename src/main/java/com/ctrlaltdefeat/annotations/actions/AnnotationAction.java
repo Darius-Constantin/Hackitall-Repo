@@ -2,6 +2,8 @@ package com.ctrlaltdefeat.annotations.actions;
 
 import com.ctrlaltdefeat.annotations.dataContainers.AnnotationData;
 import com.ctrlaltdefeat.annotations.AnnotationStorage;
+import com.intellij.notification.NotificationGroupManager;
+import com.intellij.notification.NotificationType;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.editor.Editor;
@@ -11,6 +13,7 @@ import com.intellij.psi.PsiDocumentManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 abstract class AnnotationAction extends AnAction {
     protected AnnotationData annotation;
@@ -40,6 +43,7 @@ abstract class AnnotationAction extends AnAction {
                         .getInstance(project)
                         .getPsiFile(editor.getDocument())
                         .getVirtualFile(), project));
+        Collections.reverse(annotationData);
         for (var data : annotationData) {
             if (offset <= data.getHighlighter().getEndOffset()
                     && offset >= data.getHighlighter().getStartOffset()) {
@@ -47,5 +51,19 @@ abstract class AnnotationAction extends AnAction {
             }
         }
         return null;
+    }
+
+    void notifySuccess(Project project, String message) {
+        NotificationGroupManager.getInstance()
+                .getNotificationGroup("com.ctrlaltdefeat.gitNotifications")
+                .createNotification(message, NotificationType.INFORMATION)
+                .notify(project);
+    }
+
+    void notifyFailure(Project project, String message) {
+        NotificationGroupManager.getInstance()
+                .getNotificationGroup("com.ctrlaltdefeat.gitNotifications")
+                .createNotification(message, NotificationType.ERROR)
+                .notify(project);
     }
 }

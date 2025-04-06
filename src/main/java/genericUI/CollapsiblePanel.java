@@ -25,7 +25,7 @@ public class CollapsiblePanel extends JPanel {
         setLayout(new BorderLayout());
         add(toggleButton, BorderLayout.NORTH);
         add(contentPanel, BorderLayout.CENTER);
-        setExpanded(false);
+        setExpanded(true);
     }
 
     public void addContent(JComponent content) {

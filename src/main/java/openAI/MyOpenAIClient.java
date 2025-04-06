@@ -1,16 +1,8 @@
 package openAI;
 
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.openai.models.ChatModel;
 import com.openai.models.responses.Response;
 import com.openai.models.responses.ResponseCreateParams;
-import org.json.JSONObject;
 
 import com.openai.client.OpenAIClient;
 import com.openai.client.okhttp.OpenAIOkHttpClient;
@@ -22,7 +14,7 @@ public class MyOpenAIClient {
         try {
             return generateText(createAnalysisPrompt(code));
         } catch (Exception e) {
-            return "Could not generate description: " + e.getMessage();
+            return "Could not generate: " + e.getMessage();
         }
     }
 
@@ -43,7 +35,7 @@ public class MyOpenAIClient {
         if (response.output().isEmpty() || response.output().get(0).message().isEmpty()
             || response.output().get(0).message().get().content().isEmpty()
             || response.output().get(0).message().get().content().get(0).outputText().isEmpty()) {
-            return "Could not generate description!";
+            return "Could not generate!";
         }
 
         return response.output().get(0).message().get().content().get(0).outputText().get().text();
@@ -56,5 +48,16 @@ public class MyOpenAIClient {
                 + "possible. If intent cannot be inferred because too little code was given, say "
                 + " 'Too little code was selected!'\n\n"
                 + "Code:\n" + code;
+    }
+
+    public boolean isCodeRelated(String needle, String hay) {
+        try {
+            return generateText(createAnalysisPrompt("Compare these two pieces of code. Answer only \"yes\" if they are similar enough " +
+                    "and both are clarifying something about the code. Answer only \"no\" if you do " +
+                    "not consider that.\n" +
+                    "Piece of code one: " + needle + "\nSecond piece of code: " + hay + "\n")).equals("yes");
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
