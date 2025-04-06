@@ -19,6 +19,8 @@ public class NotificationStartupActivity implements StartupActivity {
     private Phase currentPhase = Phase.WORK;
     private Boolean snoozed = false;
 
+    private final CyclePhase phaseService = ApplicationManager.getApplication().getService(CyclePhase.class);
+
     private enum Phase {
         WORK,
         BREAK
@@ -53,9 +55,11 @@ public class NotificationStartupActivity implements StartupActivity {
 
         if (currentPhase == Phase.WORK) {
             currentPhase = Phase.BREAK;
+            phaseService.setCurrentPhase(CyclePhase.Phase.BREAK);
             startCycle(project, settings.getState().getBreakTime());
         } else {
             currentPhase = Phase.WORK;
+            phaseService.setCurrentPhase(CyclePhase.Phase.WORK);
             startCycle(project, settings.getState().getWorkTime());
         }
     }
@@ -66,20 +70,20 @@ public class NotificationStartupActivity implements StartupActivity {
 
         if(!snoozed) {
             if (currentPhase == Phase.WORK) {
-                title = "Pauză!";
-                content = "Ai lucrat " + MyAppSettings.Companion.getInstance().getState().getWorkTime() + " secunde, ia o pauză!";
+                title = "Break Time!";
+                content = "You worked" + MyAppSettings.Companion.getInstance().getState().getWorkTime() + " minutes, take a break!";
             } else {
-                title = "Gata pauza de " + MyAppSettings.Companion.getInstance().getState().getBreakTime() + " secunde!";
-                content = "Înapoi la muncă, să terminăm ce am început!";
+                title = "Your " + MyAppSettings.Companion.getInstance().getState().getBreakTime() + " minute break is over!";
+                content = "Back to work! Let's finish what we started!";
             }
         }else{
             snoozed = false;
             if (currentPhase == Phase.WORK) {
                 title = "STOP!!!";
-                content = "Ai lucrat prea mult! Ia o pauză!";
+                content = "You worked to much! Take a break!";
             } else {
-                title = "Prea multa pauza!!!";
-                content = "Prea multa pauza te scoate din ritm! Hai sa muncim!!";
+                title = "Too Much Break Time!!!";
+                content = "Too much break time gets you out of your rithm! Lets work!!";
             }
         }
 
@@ -123,6 +127,7 @@ public class NotificationStartupActivity implements StartupActivity {
 
     private void restartCycle(Project project) {
         currentPhase = Phase.WORK;
+        phaseService.setCurrentPhase(CyclePhase.Phase.WORK);
         startCycle(project, MyAppSettings.Companion.getInstance().getState().getWorkTime());
     }
 }
