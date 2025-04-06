@@ -74,9 +74,9 @@ public final class ActivityTracker {
         alreadySent = true;
         ApplicationManager.getApplication().invokeLater(() -> {
             // Send a notification if user is idle for too long
-            String title = "Opaaaa";
-            String content = "Se pare ca ai ramas impotmolit! Ai nevoie de ajutor?";
-            String[] options = {"Dea", "Nah"};
+            String title = "You're Stuck!";
+            String content = "It looks like you haven't touched your code in a while! Need any help?";
+            String[] options = {"Yes", "No"};
             int choice = Messages.showDialog(
                     project,
                     content,
@@ -96,7 +96,7 @@ public final class ActivityTracker {
                         Messages.showDialog(
                                 project,
                                 suggestion,
-                                "Sugestie inteligentă 💡",
+                                "Smart sugestion 💡",
                                 new String[]{"Thanks!"}, // One button
                                 0,
                                 Messages.getInformationIcon()
