@@ -14,7 +14,7 @@ class MyAppSettings : PersistentStateComponent<MyAppSettings.State> {
     class State{
         var workTime : Int = 55;
         var breakTime : Int = 5;
-        var teamID : String = ""
+        var teamID : String = "0"
         var serverIP : String = "127.0.0.1"
         var serverPort : Int = 5000
     }

@@ -55,14 +55,14 @@ class MyAppSettingsComponent() {
         (myWorkTime.document as? PlainDocument)?.documentFilter = NumericDocumentFilter()
         (myBreakTime.document as? PlainDocument)?.documentFilter = NumericDocumentFilter()
 
-        myTeamID = JBTextField()
+        myTeamID = JBTextField(MyAppSettings.getInstance().state.teamID)
         (myTeamID.document as? PlainDocument)?.documentFilter = NumericDocumentFilter()
         myGitTokenButton = JButton("Set Git token")
         myGitTokenButton.addActionListener {
             createDialogWithTextField()
         }
-        myServerIP = JBTextField()
-        myServerPort = JBTextField()
+        myServerIP = JBTextField(MyAppSettings.getInstance().state.serverIP)
+        myServerPort = JBTextField(MyAppSettings.getInstance().state.serverPort.toString())
         (myServerPort.document as? PlainDocument)?.documentFilter = NumericDocumentFilter()
 
         val formPanel = FormBuilder.createFormBuilder().apply {

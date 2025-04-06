@@ -43,7 +43,7 @@ class NotificationSocketService(private val project: Project) {
         socket!!.on("notification") { args ->
             val data = args[0] as JSONObject
             val teamID = data.getInt("teamID")
-            if (teamID == MyAppSettings.getInstance().state.teamID.toInt()) {
+            if (teamID != MyAppSettings.getInstance().state.teamID.toInt()) {
                 return@on;
             }
             val urgency = data.getInt("urgency")

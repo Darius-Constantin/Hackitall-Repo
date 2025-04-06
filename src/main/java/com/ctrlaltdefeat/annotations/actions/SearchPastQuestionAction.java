@@ -16,7 +16,12 @@ import openAI.MyOpenAIClient;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
+import javax.swing.event.HyperlinkEvent;
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -85,7 +90,20 @@ public class SearchPastQuestionAction extends AnnotationAction {
                     htmlMessage.append("</ul></body></html>");
 
                     // Create a custom dialog with the HTML message using JEditorPane
-                    JTextArea editorPane = new JTextArea(htmlMessage.toString());
+                    JPanel container = new JPanel();
+                    JTextPane editorPane = new JTextPane();
+                    container.add(new JScrollPane(editorPane));
+                    editorPane.setText(htmlMessage.toString());
+                    editorPane.setContentType("text/html");
+                    editorPane.addHyperlinkListener(evt -> {
+                        if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+                            try {
+                                Desktop.getDesktop().browse(new URI(evt.getURL().toString()));
+                            } catch (IOException | URISyntaxException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                        }
+                    });
                     editorPane.setEditable(false); // Make it non-editable
 
                     // Show the custom dialog with the HTML content

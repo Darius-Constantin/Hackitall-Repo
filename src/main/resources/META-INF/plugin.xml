@@ -26,7 +26,7 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow id="Annotation Panel" secondary="true"
+        <toolWindow id="Annotation Panel" secondary="false"
                     icon="AllIcons.General.Balloon" anchor="right"
                     factoryClass="com.ctrlaltdefeat.annotations.ui.AnnotationToolWindowFactory"/>
         <toolWindow id="MoodGraph" secondary="true"

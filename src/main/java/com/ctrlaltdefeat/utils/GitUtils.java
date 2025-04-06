@@ -98,22 +98,6 @@ public class GitUtils {
 //        }
 
         try {
-//            JsonObject notification = new JsonObject();
-//            notification.addProperty("teamID",
-//                    MyAppSettings.Companion.getInstance().getState().getTeamID());
-//            notification.addProperty("urgency", prio);
-//            req = HttpRequest
-//                    .newBuilder()
-//                    .uri(URI.create("http://"
-//                            + MyAppSettings.Companion.getInstance().getState().getServerIP()
-//                            + ":"
-//                            + MyAppSettings
-//                            .Companion
-//                            .getInstance()
-//                            .getState().getServerPort() + "/broadcast"))
-//                    .header("Content-Type", "application/json")
-//                    .POST(HttpRequest.BodyPublishers.ofString(notification.toString())).build();
-//            response = client.send(req, HttpResponse.BodyHandlers.ofString());
             NotificationSocketService.Companion.getInstance(project).emitNotification(prio);
         } catch (Exception ignored) {}
     }
