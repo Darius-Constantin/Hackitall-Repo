@@ -56,6 +56,7 @@ class MyAppSettingsComponent() {
         (myBreakTime.document as? PlainDocument)?.documentFilter = NumericDocumentFilter()
 
         myTeamID = JBTextField()
+        (myTeamID.document as? PlainDocument)?.documentFilter = NumericDocumentFilter()
         myGitTokenButton = JButton("Set Git token")
         myGitTokenButton.addActionListener {
             createDialogWithTextField()

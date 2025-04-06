@@ -1,7 +1,9 @@
 package com.ctrlaltdefeat.utils;
 
+import com.NotificationSocketService;
 import com.google.gson.*;
 import com.ctraltdefeat.settings.MyAppSettings;
+import com.intellij.openapi.project.Project;
 import groovy.lang.Tuple2;
 
 import java.io.File;
@@ -71,7 +73,7 @@ public class GitUtils {
     }
 
     public static void createGitIssue(String repoOwner, String repoName, String title, String body,
-                                      String token, int prio) throws Exception {
+                                      String token, int prio, Project project) throws Exception {
         String apiUrl = GITHUB_API_BASE + "/repos/" + repoOwner + "/" + repoName + "/issues";
 
         JsonObject issue = new JsonObject();
@@ -88,29 +90,31 @@ public class GitUtils {
                 .header("X-GitHub-Api-Version", "2022-11-28")
                 .POST(HttpRequest.BodyPublishers.ofString(issue.toString())).build();
 
-        HttpResponse<String> response = client.send(req, HttpResponse.BodyHandlers.ofString());
-        if (response.statusCode() != 201) {
-            throw new RuntimeException("Failed to create issue. HTTP error code: "
-                    + response.statusCode());
-        }
+        HttpResponse<String> response;
+//        response = client.send(req, HttpResponse.BodyHandlers.ofString());
+//        if (response.statusCode() != 201) {
+//            throw new RuntimeException("Failed to create issue. HTTP error code: "
+//                    + response.statusCode());
+//        }
 
         try {
-            JsonObject notification = new JsonObject();
-            notification.addProperty("teamID",
-                    MyAppSettings.Companion.getInstance().getState().getTeamID());
-            notification.addProperty("urgency", prio);
-            req = HttpRequest
-                    .newBuilder()
-                    .uri(URI.create("http://"
-                            + MyAppSettings.Companion.getInstance().getState().getServerIP()
-                            + ":"
-                            + MyAppSettings
-                            .Companion
-                            .getInstance()
-                            .getState().getServerPort() + "/broadcast"))
-                    .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(notification.toString())).build();
-            response = client.send(req, HttpResponse.BodyHandlers.ofString());
+//            JsonObject notification = new JsonObject();
+//            notification.addProperty("teamID",
+//                    MyAppSettings.Companion.getInstance().getState().getTeamID());
+//            notification.addProperty("urgency", prio);
+//            req = HttpRequest
+//                    .newBuilder()
+//                    .uri(URI.create("http://"
+//                            + MyAppSettings.Companion.getInstance().getState().getServerIP()
+//                            + ":"
+//                            + MyAppSettings
+//                            .Companion
+//                            .getInstance()
+//                            .getState().getServerPort() + "/broadcast"))
+//                    .header("Content-Type", "application/json")
+//                    .POST(HttpRequest.BodyPublishers.ofString(notification.toString())).build();
+//            response = client.send(req, HttpResponse.BodyHandlers.ofString());
+            NotificationSocketService.Companion.getInstance(project).emitNotification(prio);
         } catch (Exception ignored) {}
     }
 

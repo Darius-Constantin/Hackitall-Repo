@@ -80,7 +80,7 @@ public class QuestionOnAnnotationAction extends AnnotationAction {
                     String MY_TOKEN = safeStorageUtil.get("gitToken");
                     GitUtils.createGitIssue(parts[0], parts[1], dialogue.getTitleText(),
                             buildIssueBody(selectedText, dialogue.getQuestionText()), MY_TOKEN,
-                            dialogue.getPriorityLevel());
+                            dialogue.getPriorityLevel(), project);
                     notifySuccess(project, "Question " +
                             "posted to GitHub successfully.");
                 } catch (Exception ex) {
