@@ -8,7 +8,7 @@ import com.openai.client.OpenAIClient;
 import com.openai.client.okhttp.OpenAIOkHttpClient;
 
 public class MyOpenAIClient {
-    private static final String OPENAI_API_KEY = "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";
+    private static final String OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
 
     public String analyzeCode(String code) {
         try {
