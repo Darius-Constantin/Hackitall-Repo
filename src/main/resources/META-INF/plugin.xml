@@ -30,7 +30,7 @@
                     icon="AllIcons.General.Balloon" anchor="right"
                     factoryClass="com.ctrlaltdefeat.annotations.ui.AnnotationToolWindowFactory"/>
         <toolWindow id="MoodGraph" secondary="true"
-                    icon="AllIcons.Actions.ArrowExpand"
+                    icon="AllIcons.General.User"
                     anchor="right"
                     factoryClass="com.ctrlaltdelete.mood.MoodGraph"
         />

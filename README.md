@@ -1,6 +1,6 @@
-# IntelliJ TeamQ Plugin
+# IntelliJ CogniFlow Plugin
 
-**TeamQ** is an IntelliJ IDEA plugin that enables developers within a Git project team to ask
+**CogniFlow ** is an IntelliJ IDEA plugin that enables developers within a Git project team to ask
 technical questions about code, collaborate efficiently, and receive real-time notifications.
 It seamlessly integrates with GitHub Issues, OpenAI for code analysis, and a Flask-based team
 socket server for notification dispatch. While productivity is important, so is wellbeing, so a 
