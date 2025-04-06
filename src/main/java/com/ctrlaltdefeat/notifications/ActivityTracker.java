@@ -1,5 +1,6 @@
 package com.ctrlaltdefeat.notifications;
 
+import ai.grazie.utils.attributes.Attributes;
 import com.intellij.openapi.components.Service;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
@@ -10,6 +11,7 @@ import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationGroupManager;
 import com.intellij.notification.NotificationType;
 import lombok.Setter;
+import openAI.MyOpenAIClient;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,8 +27,9 @@ public final class ActivityTracker {
     @Setter
     private Project project;
     private long lastActivityTime = System.currentTimeMillis();
-    private static final long IDLE_TIME_LIMIT = 10 * 1000; // 5 seconds in milliseconds
+    private static final long IDLE_TIME_LIMIT = 5 * 1000; // 5 minutes in milliseconds
     private Timer timer;
+    private Boolean alreadySent = false;
 
     public ActivityTracker() {
         // Track keyboard and mouse events
@@ -39,7 +42,7 @@ public final class ActivityTracker {
             public void run() {
                 checkIdleTime();
             }
-        }, 0, 5 * 1000); // Check every second
+        }, 0, 5 * 1000); // Check every 5 seconds
     }
 
     private void trackUserActivity() {
@@ -56,30 +59,75 @@ public final class ActivityTracker {
 
     private void checkIdleTime() {
         long idleTime = System.currentTimeMillis() - lastActivityTime;
-        if (idleTime >= IDLE_TIME_LIMIT) {
+        if (idleTime >= IDLE_TIME_LIMIT && !alreadySent) {
             // Notify user after the idle period has passed
             sendIdleNotification();
         }
     }
 
     private void sendIdleNotification() {
+        alreadySent = true;
         ApplicationManager.getApplication().invokeLater(() -> {
             // Send a notification if user is idle for too long
             String title = "Opaaaa";
             String content = "Se pare ca ai ramas impotmolit! Ai nevoie de ajutor?";
             String[] options = {"Dea", "Nah"};
             int choice = Messages.showDialog(
-                project,
-                content,
-                title,
-                options,
-                0,
-                Messages.getInformationIcon()
+                    project,
+                    content,
+                    title,
+                    options,
+                    0,
+                    Messages.getInformationIcon()
             );
             if (choice == 0) {
-                System.out.println("Aici vine ajutor de la chat");
+                // Generate help based on current file and editor
+                ApplicationManager.getApplication().invokeLater(() -> {
+                    try {
+                        MyOpenAIClient client = new MyOpenAIClient();
+                        String prompt = buildContextPrompt(project);
+                        String suggestion = client.generateText(prompt, 300);
+
+                        Messages.showDialog(
+                                project,
+                                suggestion,
+                                "Sugestie inteligentă 💡",
+                                new String[]{"Thanks!"}, // One button
+                                0,
+                                Messages.getInformationIcon()
+                        );
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Messages.showErrorDialog(project, "Eroare la generarea sugestiei: " + e.getMessage(), "Oops");
+                    }
+                });
             }
             lastActivityTime = System.currentTimeMillis();
+            alreadySent = false;
         });
     }
+
+    private String buildContextPrompt(Project project) {
+        var editor = com.intellij.openapi.fileEditor.FileEditorManager.getInstance(project).getSelectedTextEditor();
+        if (editor == null) {
+            return "The developer became idle, but no editor was active. Offer a general productivity suggestion." +
+                    " Address to the first person direclty to him with no more explication";
+        }
+
+        var document = editor.getDocument();
+        var text = document.getText();
+        var file = com.intellij.openapi.fileEditor.FileDocumentManager.getInstance().getFile(document);
+        String fileName = file != null ? file.getName() : "UnknownFile.java";
+
+        // Optional: limit text length
+        if (text.length() > 2000) {
+            text = text.substring(0, 2000) + "\n\n... [truncated]";
+        }
+
+        return "The developer was idle while editing " + fileName +
+                ". Here's the current code:\n\n" + text +
+                "\n\nWhat are some helpful tips, possible next steps, or improvements they could consider?" +
+                " Address to the first person direclty to him with no more explication";
+    }
+
 }

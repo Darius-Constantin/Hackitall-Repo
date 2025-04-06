@@ -20,13 +20,13 @@ public class MyOpenAIClient {
 
     public String analyzeCode(String code) {
         try {
-            return generateText(createAnalysisPrompt(code));
+            return generateText(createAnalysisPrompt(code), 150);
         } catch (Exception e) {
             return "Could not generate description: " + e.getMessage();
         }
     }
 
-    public String generateText(String prompt) throws Exception {
+    public String generateText(String prompt, int maxTokens) throws Exception {
         OpenAIClient client = OpenAIOkHttpClient.builder()
                 .apiKey(OPENAI_API_KEY)
                 .build();
@@ -35,14 +35,14 @@ public class MyOpenAIClient {
                 .input(prompt)
                 .model(ChatModel.GPT_3_5_TURBO)
                 .temperature(0.5)
-                .maxOutputTokens(150)
+                .maxOutputTokens(maxTokens)
                 .build();
 
         Response response = client.responses().create(params);
 
         if (response.output().isEmpty() || response.output().get(0).message().isEmpty()
-            || response.output().get(0).message().get().content().isEmpty()
-            || response.output().get(0).message().get().content().get(0).outputText().isEmpty()) {
+                || response.output().get(0).message().get().content().isEmpty()
+                || response.output().get(0).message().get().content().get(0).outputText().isEmpty()) {
             return "Could not generate description!";
         }
 
