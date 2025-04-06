@@ -40,10 +40,8 @@ public final class ActivityTracker {
     }
 
     private void trackUserActivity() {
-        // Keyboard activity
         Toolkit.getDefaultToolkit().addAWTEventListener(e -> resetIdleTime(), KeyEvent.KEY_EVENT_MASK);
 
-        // Mouse activity
         Toolkit.getDefaultToolkit().addAWTEventListener(e -> resetIdleTime(), MouseEvent.MOUSE_EVENT_MASK);
     }
 
@@ -54,14 +52,13 @@ public final class ActivityTracker {
     private void checkIdleTime() {
         long idleTime = System.currentTimeMillis() - lastActivityTime;
         if (idleTime >= IDLE_TIME_LIMIT && !alreadySent) {
-            // Notify user after the idle period has passed
             sendIdleNotification();
         }
     }
 
     private void sendIdleNotification() {
         if (!phaseService.isWorkPhase()) {
-            return; // Don't show dialog if it's not work phase
+            return;
         }
         alreadySent = true;
         ApplicationManager.getApplication().invokeLater(() -> {

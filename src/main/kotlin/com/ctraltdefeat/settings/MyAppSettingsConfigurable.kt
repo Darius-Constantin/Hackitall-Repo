@@ -27,8 +27,8 @@ class MyAppSettingsConfigurable : Configurable {
         state.teamID = localSettingComp.getTeamID()
         state.serverIP = localSettingComp.getServerIP()
         state.serverPort = localSettingComp.getServerPort()
-        localSettingComp.updateDebug()
         MyAppSettings.getInstance().notifyNotifications()
+        localSettingComp.updateDebug()
     }
 
     override fun getDisplayName(): String {
