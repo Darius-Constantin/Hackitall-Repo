@@ -19,6 +19,8 @@ public class NotificationStartupActivity implements StartupActivity {
     private Phase currentPhase = Phase.WORK;
     private Boolean snoozed = false;
 
+    private final CyclePhase phaseService = ApplicationManager.getApplication().getService(CyclePhase.class);
+
     private enum Phase {
         WORK,
         BREAK
@@ -53,9 +55,11 @@ public class NotificationStartupActivity implements StartupActivity {
 
         if (currentPhase == Phase.WORK) {
             currentPhase = Phase.BREAK;
+            phaseService.setCurrentPhase(CyclePhase.Phase.BREAK);
             startCycle(project, settings.getState().getBreakTime());
         } else {
             currentPhase = Phase.WORK;
+            phaseService.setCurrentPhase(CyclePhase.Phase.WORK);
             startCycle(project, settings.getState().getWorkTime());
         }
     }
@@ -123,6 +127,7 @@ public class NotificationStartupActivity implements StartupActivity {
 
     private void restartCycle(Project project) {
         currentPhase = Phase.WORK;
+        phaseService.setCurrentPhase(CyclePhase.Phase.WORK);
         startCycle(project, MyAppSettings.Companion.getInstance().getState().getWorkTime());
     }
 }

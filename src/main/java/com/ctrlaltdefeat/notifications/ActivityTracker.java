@@ -31,6 +31,8 @@ public final class ActivityTracker {
     private Timer timer;
     private Boolean alreadySent = false;
 
+    CyclePhase phaseService = ApplicationManager.getApplication().getService(CyclePhase.class);
+
     public ActivityTracker() {
         // Track keyboard and mouse events
         trackUserActivity();
@@ -66,6 +68,9 @@ public final class ActivityTracker {
     }
 
     private void sendIdleNotification() {
+        if (!phaseService.isWorkPhase()) {
+            return; // Don't show dialog if it's not work phase
+        }
         alreadySent = true;
         ApplicationManager.getApplication().invokeLater(() -> {
             // Send a notification if user is idle for too long
